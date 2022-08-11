@@ -11,4 +11,4 @@
  <img src ="https://raw.githubusercontent.com/Connorh29/AStar/main/AStar/TerrainExample.png"/>
  
  Here is an example input and solution
- <img src="https://raw.githubusercontent.com/Connorh29/AStar/main/AStar/Screenshot_28.png"/>
+ <img src="https://raw.githubusercontent.com/Connorh29/AStar/main/AStar/ExampleIO.png"/>
