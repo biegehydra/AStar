@@ -1,16 +1,17 @@
-﻿using AStar.Models;
+﻿using System.Security.Cryptography.X509Certificates;
+using AStar.Models;
 
 namespace AStar
 {
     public class Program
     {
         public static int buffer = 1;
-        private static Playground MakePlayground()
+        private static Terrain MakeTerrainFromCommandLine()
         {
-            Console.Write("Enter Hegith of Playground: ");
+            Console.Write("Enter Heigth of Terrain: ");
             int heighofPlayground = int.Parse(Console.ReadLine());
 
-            Console.Write("Enter Width of Playground: ");
+            Console.Write("Enter Width of Terrain: ");
             int widthofPlayground = int.Parse(Console.ReadLine());
 
             // Set Starting Node
@@ -20,7 +21,7 @@ namespace AStar
             var startNode = new Node(startCords);
 
             // Sets end node
-            Console.Write("Enter end node position seperated by , :");
+            Console.Write("Enter end node position seperated by , : ");
             string[] endCoordinates = Console.ReadLine().Split(',');
             Coord endCords = new(int.Parse(endCoordinates[0]) - buffer, int.Parse(endCoordinates[1]) - buffer);
             var endNode = new Node(endCords);
@@ -28,25 +29,34 @@ namespace AStar
             Console.Write("Enter coordinates of walls seperated by spaces: ");
             string[] coordinatesOfWalls = Console.ReadLine().Split(' ');
 
-            List<Coord> cordsofwalls = new List<Coord>();
+            List<Coord> coordsofwalls = new List<Coord>();
             foreach (var coordinatesOfWall in coordinatesOfWalls)
             {
                 var coords = coordinatesOfWall.Split(',');
-                cordsofwalls.Add(new Coord(int.Parse(coords[0])-buffer, int.Parse(coords[1]) - buffer));
+                try
+                {
+                    coordsofwalls.Add(new Coord(int.Parse(coords[0]) - buffer, int.Parse(coords[1]) - buffer));
+                }
+                catch
+                {
+                    new Exception("Incorrect format");
+                }
             }
-            List<Node> walls = new List<Node>();
-            cordsofwalls.ForEach(x => walls.Add(new Node(x, true)));
-
-            Console.Write("Can move diagonally? Yes/No ");
-            var test = Console.ReadLine().ToLower();
-            bool canMoveDiagonally = test == "yes";
-            return new Playground(heighofPlayground, widthofPlayground, startNode, endNode, walls, canMoveDiagonally);
+            return new Terrain(heighofPlayground, widthofPlayground, startNode, endNode, coordsofwalls);
         }
         public static void Main(string[] args)
         {
-            var playground = MakePlayground();
-            var path = playground.CalculateFastestPath();
-            Console.WriteLine(path);
+            Console.WriteLine(Console.OutputEncoding);
+            var playground = MakeTerrainFromCommandLine();
+            var aStarPathFinder = new AStarPathFinder(playground);
+            if (aStarPathFinder.CalculateFastestPath())
+            {
+                var pg = aStarPathFinder.CreateSolution();
+                foreach (var s in pg)
+                {
+                    Console.WriteLine(s);
+                }
+            }
         }
 
     }
