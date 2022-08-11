@@ -271,6 +271,7 @@ namespace AStar.Models
 
         public bool AreNeighbors(Node node)
         {
+            if (node.Coord == Coord) return false;
             return (MathF.Abs(Coord.x - node.Coord.x) <= 1 && Coord.y - node.Coord.y == 0) || MathF.Abs(Coord.y - node.Coord.y) <= 1 && Coord.x - node.Coord.x == 0;
         }
         public float CalculateDistanceTo(Node node)
