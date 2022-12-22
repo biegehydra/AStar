@@ -13,3 +13,5 @@
 Here is an example input and solution
 
 ![Example](./Images/ExampleIO.png)
+
+Xs represent vistitable nodes. S represents the starting node. E represents the end node. W represents Walls.
