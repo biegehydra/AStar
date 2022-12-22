@@ -8,7 +8,8 @@
  
  The terrain positions are in the following format
  
- <img src ="https://raw.githubusercontent.com/Connorh29/AStar/main/AStar/TerrainExample.png"/>
- 
- Here is an example input and solution
- <img src="https://raw.githubusercontent.com/Connorh29/AStar/main/AStar/ExampleIO.png"/>
+![Format](./Images/TerrainExample.png)
+
+Here is an example input and solution
+
+![Example](./Images/ExampleIO.png)
